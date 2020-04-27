@@ -12,8 +12,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.room.*
-import androidx.room.RoomMasterTable.TABLE_NAME
+import com.androiddesenv.opiniaodetudo.infra.dao.ReviewTableInfo
 import java.util.*
+
+@Dao
+interface ReviewDao {
+    @Insert
+    fun save(review: Review)
+
+    @Query("SELECT * from ${ReviewTableInfo.TABLE_NAME}")
+    fun listAll():List<Review>
+}
 
 @Entity
 data class Review(
@@ -22,35 +31,23 @@ data class Review(
     val name: String,
     val Review: String?)
 
-@Dao
-interface ReviewDao {
-   @Insert
-   fun save(review: Review)
 
-    @Query("SELECT * from ${ReviewTableInfo.TABLE_NAME}")
-    fun listAll(): List<Review>
-
-    interface ReviewTableInfo {
-
-    }
-
-}
 
 @Database(entities = arrayOf(Review::class), version = 2)
-abstract class ReviewDatabase: RoomDatabase(){
 
+abstract class ReviewDatabase : RoomDatabase(){
     companion object {
         private var instance: ReviewDatabase? = null
 
-        fun getInstance(context: Context): ReviewDatabase{
-            if(instance==null){
-                instance= Room
+        fun getInstance(context: Context): ReviewDatabase {
+            if(instance == null){
+                instance = Room
                     .databaseBuilder(context, ReviewDatabase::class.java, "review_database")
                     .build()
             }
-            return instance!!
-       }
-   }
+            return  instance!!
+        }
+    }
 
     abstract fun reviewDao():ReviewDao
 }
