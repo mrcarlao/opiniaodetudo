@@ -7,4 +7,6 @@
     <string name="nome_do_produto_filme_coisa">Nome do produto/filme/coisa</string>
     <string name="escreva_aqui_a_sua_opini_o">Escreva aqui a sua opinião</string>
     <string name="listar">Listar</string>
+    <string name="item_list_edit">Modificar</string>
+    <string name="item_list_delete">Apagar</string>
 </resources>

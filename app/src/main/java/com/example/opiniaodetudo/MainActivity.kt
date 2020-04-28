@@ -15,21 +15,26 @@ import androidx.room.*
 import com.androiddesenv.opiniaodetudo.infra.dao.ReviewTableInfo
 import java.util.*
 
-@Dao
-interface ReviewDao {
-    @Insert
-    fun save(review: Review)
-
-    @Query("SELECT * from ${ReviewTableInfo.TABLE_NAME}")
-    fun listAll():List<Review>
-}
 
 @Entity
 data class Review(
     @PrimaryKey
     val id: String,
     val name: String,
-    val Review: String?)
+    val review: String?)
+
+@Dao
+interface ReviewDao {
+
+    @Insert
+    fun save(review: Review)
+
+    @Query("SELECT * from ${ReviewTableInfo.TABLE_NAME}")
+    fun listAll():List<Review>
+
+    @Delete
+    fun delete(item: Review)
+}
 
 
 
@@ -67,6 +72,10 @@ class ReviewRepository{
 
     fun listAll(): List<Review> {
         return reviewDao.listAll()
+    }
+
+    fun delete(item: Review) {
+        TODO("Not yet implemented")
     }
 
 }
