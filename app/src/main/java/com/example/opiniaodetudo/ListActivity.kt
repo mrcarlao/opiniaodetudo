@@ -25,7 +25,8 @@ class ListActivity : AppCompatActivity(){
     private fun initList(listView: ListView) {
         object : AsyncTask<Void, Void, ArrayAdapter<Review>>() {
             override fun doInBackground(vararg params: Void?): ArrayAdapter<Review> {
-
+//                 reviews = ReviewRepository(this@ListActivity.applicationContext)
+//                    .listAll().toMutableList()
                 val adapter = object : ArrayAdapter<Review>(
                     this@ListActivity, -1, reviews ) {
                     override  fun getView(
@@ -74,7 +75,7 @@ class ListActivity : AppCompatActivity(){
     }
 
     private fun configureOnLongClick(listView: ListView?) {
-        listView?.setOnItemLongClickListener{ parent, view, position, id ->
+        listView.setOnItemLongClickListener{ parent, view, position, id ->
             val popupMenu = PopupMenu(this@ListActivity, view)
             popupMenu.inflate(R.menu.list_review_item_menu)
             popupMenu.setOnMenuItemClickListener {
@@ -92,8 +93,8 @@ class ListActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.list_review_layout)
 
-        val repo = ReviewRepository(this@ListActivity.applicationContext)
-        reviews = repo.listAll().toMutableList()
+       val repo = ReviewRepository(this@ListActivity.applicationContext)
+      reviews = repo.listAll().toMutableList()
 
         this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
